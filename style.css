@@ -1,0 +1,460 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: linear-gradient(var(--gradient-angle),
+      #000000,
+      #0a0a0a,
+      #141414,
+      #1e1e1e,
+      #282828,
+      #323232,
+      #3c3c3c,
+      #464646,
+      #505050,
+      #5a5a5a,
+      #646464,
+      #6e6e6e);
+
+  animation: rotate-gradient 80s linear infinite;
+}
+
+.Card {
+  position: relative;
+  width: 80vw;
+  height: 80vh;
+  max-width: 1250px;
+  max-height: 960px;
+  min-height: 520px;
+  padding: clamp(18px, 3.2vw, 44px);
+  border-radius: 38px;
+  background: url("images/pexels-souvenirpixels-1519088.jpg") center/cover no-repeat;
+  background-size: 120% 120%;
+
+  animation: pan-window 20s ease-in-out infinite alternate, card-float 35s ease-in-out infinite;
+
+  border: 1px solid rgba(255, 255, 255, .14);
+  box-shadow: 0 14px 50px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .12);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2vw, 28px);
+  overflow: hidden;
+}
+
+.Top {
+  display: flex;
+  gap: clamp(12px, 1.6vw, 28px);
+  align-items: flex-start;
+  width: 100%;
+  flex: 0 0 auto;
+  padding: clamp(8px, 1.4vw, 18px) 0 clamp(6px, 1vw, 12px)
+}
+
+.leftTop {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(12px, 3.2vw, 48px);
+  flex: 1 1 0;
+  min-width: 0
+}
+
+.city-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1vw, 12px);
+  min-width: 0;
+  max-width: min(62%, 720px)
+}
+
+.city {
+  margin: 0;
+  font-weight: 635;
+  line-height: 1.02;
+  font-size: clamp(36px, 7.5vw, 96px);
+  white-space: normal;
+  overflow-wrap: anywhere;
+  color: #ffeded;
+  font-style: italic;
+  animation: driftAnim 12s ease-in-out infinite;
+}
+
+.temp {
+  margin: 0;
+  font-size: clamp(14px, 2.6vw, 52px);
+  color: rgba(233, 241, 255, .95);
+  animation: driftAnim 12s ease-in-out infinite;
+
+}
+
+.weather-icon {
+  position: absolute;
+  top: clamp(34px, 5.6vh, 60px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(80px, 11vw, 160px);
+  height: auto;
+  object-fit: contain;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.rightTop {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.2vw, 18px);
+  flex: 0 0 auto;
+  min-width: 0;
+  justify-content: flex-end
+}
+
+.rightTop input {
+  padding: clamp(8px, 1.4vw, 12px) clamp(12px, 2vw, 22px);
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, .18);
+  background: rgba(230, 230, 230, .8);
+  color: #222;
+  font-size: clamp(12px, 1.6vw, 18px);
+  width: clamp(140px, 28vw, 380px);
+  max-width: 55%;
+  min-width: 120px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .12), inset 0 1px 0 rgba(255, 255, 255, .06)
+}
+
+.rightTop button {
+  border: none;
+  background: rgba(230, 230, 230, .88);
+  width: clamp(38px, 4.8vw, 52px);
+  height: clamp(38px, 4.8vw, 52px);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 6px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .12)
+}
+
+.rightTop button img {
+  width: min(20px, 70%);
+  height: auto
+}
+
+.Bottom {
+  margin-top: auto;
+  width: 100%;
+  height: clamp(180px, 22vh, 360px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 2vw, 28px);
+  align-items: center;
+  padding-top: clamp(8px, 1vw, 18px)
+}
+
+.Hidden {
+  display: none;
+}
+
+.infoCard {
+  min-height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(245, 245, 245, .08));
+  border-radius: 16px;
+  padding: clamp(14px, 2vw, 24px);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 32px);
+  box-shadow: rgba(0, 0, 0, .14) 0 12px 28px, rgba(0, 0, 0, .06) 0 3px 8px inset;
+  overflow: hidden;
+}
+
+.infoCard img {
+  width: clamp(56px, 8vw, 96px);
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  opacity: .98
+}
+
+.infoCard>div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0
+}
+
+.infoCard p:first-child {
+  color: #fff;
+  font-weight: 700;
+  font-size: clamp(16px, 2vw, 24px);
+  margin: 0
+}
+
+.infoCard p:last-child {
+  color: rgba(255, 255, 255, .88);
+  font-size: clamp(12px, 1.4vw, 18px);
+  margin: 0
+}
+
+.Bottom .infoCard:nth-child(3) {
+  justify-content: center;
+  text-align: center
+}
+
+.Bottom .infoCard:nth-child(3)>div {
+  align-items: center
+}
+
+.Bottom .infoCard:nth-child(3) .weather-main {
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(18px, 2.6vw, 30px);
+  margin: 0
+}
+
+.Bottom .infoCard:nth-child(3) .weather-desc {
+  color: rgba(255, 255, 255, .92);
+  font-size: clamp(14px, 1.6vw, 18px);
+  text-transform: capitalize;
+  margin: 0
+}
+
+
+@media (max-width:900px) {
+
+  .Card {
+    width: 90vw;
+    min-height: 0;
+  }
+
+  .Top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .leftTop {
+    gap: 20px;
+  }
+
+  .city-block {
+    max-width: none;
+  }
+
+  .rightTop {
+    justify-content: flex-start;
+  }
+
+  .rightTop input {
+    max-width: 400px;
+  }
+
+  .Bottom {
+    grid-template-columns: repeat(2, 1fr);
+    height: auto
+  }
+
+  .infoCard {
+    gap: clamp(12px, 2vw, 20px);
+    padding: clamp(12px, 1.6vw, 18px)
+  }
+}
+
+@media (max-width:480px) {
+
+  body {
+    padding: 12px;
+  }
+
+  .Card {
+    width: 100%;
+    height: auto;
+    min-height: 90vh;
+    max-height: none;
+    padding: 16px;
+  }
+
+  .Top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+
+  .city-block {
+    max-width: none;
+  }
+
+  .city {
+    font-size: 44px;
+  }
+
+  .temp {
+    font-size: 28px;
+  }
+
+  .rightTop {
+    justify-content: stretch;
+    gap: 10px;
+  }
+
+  .rightTop input {
+    width: 100%;
+    max-width: none;
+    font-size: 16px;
+  }
+
+  .rightTop button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .Bottom {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    height: auto
+  }
+
+  .infoCard {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px
+  }
+
+  .infoCard img {
+    width: clamp(44px, 12vw, 72px)
+  }
+
+  .infoCard>div {
+    gap: 4px
+  }
+}
+
+
+.infoCard p {
+  line-height: 1.2;
+  overflow-wrap: anywhere
+}
+
+@keyframes driftAnim {
+  0% {
+    transform: translateX(0px) scale(1);
+  }
+
+  25% {
+    transform: translateX(1.5px) scale(1.01);
+  }
+
+  50% {
+    transform: translateX(-1.5px) scale(1.015);
+  }
+
+  75% {
+    transform: translateX(1px) scale(1.008);
+  }
+
+  100% {
+    transform: translateX(0px) scale(1);
+  }
+}
+
+@property --gradient-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes rotate-gradient {
+  0% {
+    --gradient-angle: 0deg;
+  }
+
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+
+
+@keyframes card-float {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(-2px, 2px);
+  }
+
+  50% {
+    transform: translate(1px, -2px);
+  }
+
+  75% {
+    transform: translate(-1px, 1px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes pan-window {
+  0% {
+    background-position: 50% 50%;
+  }
+
+  15% {
+    background-position: 51% 49%;
+  }
+
+  30% {
+    background-position: 49% 52%;
+  }
+
+  45% {
+    background-position: 50% 51%;
+  }
+
+  60% {
+    background-position: 52% 49%;
+  }
+
+  75% {
+    background-position: 51% 51%;
+  }
+
+  90% {
+    background-position: 49% 49%;
+  }
+
+  100% {
+    background-position: 50% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .Card,
+  .city,
+  .temp {
+    animation: none;
+  }
+
+}
